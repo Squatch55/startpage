@@ -1,29 +1,10 @@
 <template>
     <div>
-        <p class="clock">{{ time }}</p>
+        <p class="clock">Welcome again, Squatch</p>
     </div>
 </template>
 
-<script>
-import { config } from "../../config.js";
 
-export default {
-    data() {
-        return {
-            interval: null,
-            time: null
-        };
-    },
-    beforeDestroy() {
-        clearInterval(this.interval);
-    },
-    created() {
-        this.interval = setInterval( () => {
-            this.time = new Date().toLocaleTimeString([], { hour12: config.twelveHourFormat })
-        });
-    }
-}
-</script>
 
 <style scoped>
 
