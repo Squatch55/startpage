@@ -11,7 +11,7 @@ let search_engine_index = 1;
 
 // Search function: Gets called on 'Enter' keypress
 // and depending on which search engine is currently selected
-function duckduckgo_search(str) {
+function librex_search(str) {
   if (str !== "") {
     search_query = "https://librex.extravi.dev/search.php?q=" + str;
     window.location.replace(search_query);
@@ -63,7 +63,7 @@ form.addEventListener("submit", (event) => {
 input.addEventListener("keypress", function (event) {
   if (event.key == 'Enter') {
     search_engine_index == 0 ? google_search(input.value)
-      : search_engine_index == 1 ? duckduckgo_search(input.value)
+      : search_engine_index == 1 ? librex_search(input.value)
       : search_engine_index == 2 ? github_search(input.value)
       : search_engine_index == 3 ? stackoverflow_search(input.value)
       : reddit_search(input.value)
