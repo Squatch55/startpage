@@ -1,0 +1,131 @@
+* {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+body {
+    background-color: #2B2A33;
+    -moz-user-select: none;
+    user-select: none;
+}
+
+.container {
+    display: center;
+    width: max-content;
+    justify-content: center;
+    margin: auto;
+}
+
+/* Uncomment for space between buttons */
+/* .container > * { margin: 0 0 0 10px; } */
+
+#input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    width: 834.4px;
+    height: 48px;
+    font-size: 120%;
+    text-align: center;
+    outline: none;
+    background-color: #1C1B22;
+    border: 2px solid #1C1B22;
+    border-radius: 5px;
+    color: #FBFBFE;
+	position: center;
+    transition: border-color .4s;
+}
+
+#input:hover {
+    border-color: #83a589;
+}
+
+#input:focus {
+    border-color: #458588;
+}
+
+#greeting {
+    font-size: 210%;
+    color: #FBFBFE;
+    margin: auto;
+    margin-top: 250px;
+    width: 50%;
+    text-align: center;
+    transition: opacity ease-in .1s;
+}
+
+.dropbtn {
+    background-color: #1C1B22;
+    color: #FBFBFE;
+    width: 160px;
+    border: none;
+    padding: 13px;
+    font-size: 18px;
+    outline: none;
+    cursor: pointer;
+    border-radius: 5px;
+
+}
+  
+.dropdown {
+    position: center;
+    display: inline-block;
+}
+  
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1C1B22;
+    min-width: 160px;
+    box-shadow: 0px 6px 10px 0px rgba(0,0,0,0.3);
+    z-index: 1;
+    transition: opacity ease-in-out 1s;
+    transition-delay: 2000ms;
+}
+  
+.dropdown-content a {
+    display: block;
+    text-decoration: none;
+    color: #FBFBFE;
+    padding: 12px 16px;
+    font-size: 16px;
+}
+  
+.dropdown-content a:hover {
+    background-color: #42414D;
+}
+  
+.dropdown:hover .dropdown-content {
+    display: block;
+    height: auto;
+}
+  
+.dropdown:hover .dropbtn {
+    border-bottom: solid 1px #ebdbb240;
+    color: #1F999E;
+    transition: color .3s;
+}
+
+#search-engine-indicator {
+    display: block;
+    justify-content: center;
+    margin: auto;
+    text-align: center;
+    font-size: 110%;
+    transform: translateY(60px);
+    color: #ebdbb290;
+    opacity: 0;
+    transition: opacity ease-in-out .2s;
+}
+
+hr {
+    display: block;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 135px;
+    padding: 0;
+    border: none;
+    height: 1px;
+    background-color: #A8998425;
+}

@@ -1,146 +1,130 @@
-/**
- * Handle quick search functionality to let the user search
- * various quickly visited sites.
- * 
- * We will support things like g'test that will search for `test` on
- * GitHub.
- * 
- * We will also support things like r/r/startpage that will resolve to
- * reddit.com/r/startpage
- * 
- * This functionality is inspired from the tilde projects quick links:
- * https://github.com/cadejscroggins/tilde 
- */
+let input = document.getElementById("input");
+let form = document.getElementById("search-bar");
+let indicator = document.getElementById("search-engine-indicator");
 
+// Available search engines to cycle through
+let search_engines = ["Google", "DuckDuckGo", "Github", "StackOverflow", "Reddit"];
 
-// Define defaults
-const defaultSearchEndpoint = "/search?q="
+const MIN_SEARCH_ENGINE_INDEX = 0;
+const MAX_SEARCH_ENGINE_INDEX = search_engines.length - 1;
+let search_engine_index = 1;
 
-
-function searchQuickLinks(query, config) {
-    /**
-     * Check if the quicklink matches any of the defined
-     * quicklinks.
-     * 
-     * The quicklinks need to have a `'` or a `/` in the 1st index of
-     * the query string.
-     * 
-     * @param {string} query - Query entered by the user in the search bar
-     * @param {Object} config - JSON config of the startpage
-     * 
-     * @returns {boolean} Status of whether quick link invocation was succesfull or not
-     */
-    // Make sure query contains a search or direct syntax
-    const quickAction = query[1]
-    if (!["'", "/"].includes(quickAction)) return false
-
-    // Make sure the quick link invocation key is present in the config.
-    const quickLinkInvocationKey = query[0]
-
-    quickLinkValue = getInvocationKeyUrl(quickLinkInvocationKey, config.quickLinks)
-
-    if (quickLinkValue == null) return false
-
-    // Replace the special characters in the URL
-    query = query.slice(2)
-
-    // If it is not null, we need to build an URL accordingly and
-    // open it.
-    switch(quickAction) {
-        case "'":
-            // Search
-            quickLinkSearch(query, quickLinkValue)
-            break
-        case "/":
-            // Direct link
-            quickLinkDirect(query, quickLinkValue)
-            break
-        default:
-            return false
-    }
-
-    return true
+// Search function: Gets called on 'Enter' keypress
+// and depending on which search engine is currently selected
+function duckduckgo_search(str) {
+  if (str !== "") {
+    search_query = "https://librex.extravi.dev/search.php?q=" + str;
+    window.location.replace(search_query);
+  }
 }
 
-
-function getInvocationKeyUrl(key, quickLinks) {
-    /**
-     * Get the invocation key's URL to use for the query.
-     * 
-     * We need to check in the config to see if the key is present
-     * or not. If not, return  null to indicate that the key is not
-     * present.
-     * 
-     * @param {string} key - Key of the quicklink to invoke
-     * @param {Object} quickLinks - Object containing a map of invocation key to URL
-     * 
-     * @returns {(Object|null)} Object containing URL and search endpoint of the key invoked
-     * or null if key is not present.
-     */
-    if (quickLinks == null) return null
-
-    if (!Object.keys(quickLinks).includes(key)) return null
-
-    const quickLinkValue = quickLinks[key]
-
-    // The quicklink value can be both an object or a string.
-    // We will accordingly extract the object or string and return.
-
-    // If it is a string
-    if (typeof(quickLinkValue) == "string") {
-        return {
-            URL: quickLinkValue,
-            Search: defaultSearchEndpoint
-        }
-    }
-
-    // If it is an object
-    if (typeof(quickLinkValue) == "object") {
-        // Verify the object has the URL key
-        if (!Object.keys(quickLinkValue).includes("URL")) return null
-
-        // If the search field is not present, replace it with the default value
-        if (!Object.keys(quickLinkValue).includes("Search")) {
-            quickLinkValue["Search"] = defaultSearchEndpoint
-        }
-    
-        return quickLinkValue
-    }
-
-    return null
+// Search function: Gets called on 'Enter' keypress
+// and depending on which search engine is currently selected
+function google_search(str) {
+  if (str !== "") {
+    search_query = "https://www.google.com/search?q=" + str;
+    window.location.replace(search_query);
+  }
 }
 
-function quickLinkSearch(query, quickLinkValue) {
-    /**
-     * Search the query using the quicklink values passed.
-     * 
-     * This function should be called only if the user passed
-     * a search query in a valid format and the quicklink key
-     * was valid.
-     * 
-     * @param {string} query - Query that the user typed in the search bar
-     * @param {Object} quickLinkValue - Quick link value object to be used for
-     * hitting.
-     * @param {string} quickLinkValue.URL - URL to hit the quick link query to.
-     * @param {string} quickLinkValue.Search - Endpoint to be used for searching the query.
-     */
-    const searchURL = quickLinkValue.URL + quickLinkValue.Search + query
-    window.location = searchURL
+// Search function: Gets called on 'Enter' keypress
+// and depending on which search engine is currently selected
+function github_search(str) {
+  if (str !== "") {
+    search_query = "https://github.com/search?q=" + str;
+    window.location.replace(search_query);
+  }
 }
 
-function quickLinkDirect(query, quickLinkValue) {
-    /**
-     * Make a direct hit to the URL after building it using the
-     * quicklink URL and the query.
-     * 
-     * This function should be called if the query contains a valid
-     * direct link invocation in it.
-     * 
-     * @param {string} query - Query that the user typed in the search bar
-     * @param {Object} quickLinkValue - Quick link value object to be used for
-     * hitting.
-     * @param {string} quickLinkValue.URL - URL to hit the quick link query to.
-     */
-    const directURL = quickLinkValue.URL + "/" + query
-    window.location = directURL
+// Search function: Gets called on 'Enter' keypress
+// and depending on which search engine is currently selected
+function reddit_search(str) {
+  if (str !== "") {
+    search_query = "https://www.reddit.com/search/?q=" + str;
+    window.location.replace(search_query);
+  }
 }
+
+// Search function: Gets called on 'Enter' keypress
+// and depending on which search engine is currently selected
+function stackoverflow_search(str) {
+  if (str !== "") {
+    search_query = "https://stackoverflow.com/search?q=" + str;
+    window.location.replace(search_query);
+  }
+}
+
+// Search function: Gets called on 'Enter' keypress
+// and depending on which search engine is currently selected
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+});
+
+input.addEventListener("keypress", function (event) {
+  if (event.key == 'Enter') {
+    search_engine_index == 0 ? google_search(input.value)
+      : search_engine_index == 1 ? duckduckgo_search(input.value)
+      : search_engine_index == 2 ? github_search(input.value)
+      : search_engine_index == 3 ? stackoverflow_search(input.value)
+      : reddit_search(input.value)
+    input.blur();
+  }
+});
+
+
+document.addEventListener("keypress", function (event) {
+  switch (event.key) {
+    // Focus on the search bar when pressing 's'
+    case 's':
+      if (document.activeElement !== input)
+        input.focus();
+      break;
+    // Switch to next search engine when pressing 'j'
+    case 'j':
+      if ((search_engine_index < MAX_SEARCH_ENGINE_INDEX) && (document.activeElement !== input)) {
+        search_engine_index++;
+        indicator.innerHTML = "Searching with " + search_engines[search_engine_index];
+        // Show the search engine indicator for
+        // 1.5 seconds and then hide it
+        indicator.style.opacity = "1";
+        setTimeout(() => {
+          indicator.style.opacity = "0";
+        }, 1500);
+      }
+      break;
+    // Switch to previous search engine when pressing 'k'
+    case 'k':
+      if ((search_engine_index > MIN_SEARCH_ENGINE_INDEX) && (document.activeElement !== input)) {
+        search_engine_index--;
+        indicator.innerHTML = "Searching with " + search_engines[search_engine_index];
+        // Show the search engine indicator for
+        // 1.5 seconds and then hide it
+        indicator.style.opacity = "1";
+        setTimeout(() => {
+          indicator.style.opacity = "0";
+        }, 1500);
+      }
+      break;
+    // Display current search engine when pressing '?'
+    case '?':
+      if (document.activeElement !== input) {
+        indicator.innerHTML = "Searching with " + search_engines[search_engine_index];
+        // Show the search engine indicator for
+        // 1.5 seconds and then hide it
+        indicator.style.opacity = "1";
+        setTimeout(() => {
+          indicator.style.opacity = "0";
+        }, 1500);
+      }
+      break;
+    default:
+      return;
+  }
+});
+
+// Remove focus from the search bar when pressing 'Escape'
+document.addEventListener("keydown", function (event) {
+  if (event.key == "Escape") {
+    input.blur();
+  }
+}); 

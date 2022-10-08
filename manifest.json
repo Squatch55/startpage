@@ -1,16 +1,17 @@
 {
   "manifest_version": 2,
-  "name": "minimal-startpage",
-  "short_name": "minimal-startpage",
-  "version": "0.2",
-  "description": "Overrides the browsers newtab page with a custom startpage.",
-  "author": "deepjyoti30",
-
-  "icons": {
-    "64": "img/icon64.png"
-  },
+  "name": "Gruvypage",
+  "version": "1.0.0",
+  "description": "New Tab Startpage",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
-  "permissions": ["storage"]
+  "icons": {
+    "48": "assets/ico/coffee-48x48.svg",
+    "96": "assets/ico/coffee-48x48.svg"
+  },
+  "content_security_policy": "script-src 'self'; object-src 'self';",
+  "web_accessible_resources": [
+    "assets/img/avatar.png"
+  ]
 }
