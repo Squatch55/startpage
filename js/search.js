@@ -3,7 +3,7 @@ let form = document.getElementById("search-bar");
 let indicator = document.getElementById("search-engine-indicator");
 
 // Available search engines to cycle through
-let search_engines = ["Google", "DuckDuckGo", "Github", "StackOverflow", "Reddit"];
+let search_engines = ["Google", "LibreX", "Github", "StackOverflow", "Reddit"];
 
 const MIN_SEARCH_ENGINE_INDEX = 0;
 const MAX_SEARCH_ENGINE_INDEX = search_engines.length - 1;
