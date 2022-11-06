@@ -13,7 +13,7 @@ let search_engine_index = 1;
 // and depending on which search engine is currently selected
 function librex_search(str) {
   if (str !== "") {
-    search_query = "https://librex.extravi.dev/search.php?q=" + str;
+    search_query = "https://librex.beparanoid.de/search.php?q=" + str;
     window.location.replace(search_query);
   }
 }
