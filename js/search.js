@@ -3,7 +3,7 @@ let form = document.getElementById("search-bar");
 let indicator = document.getElementById("search-engine-indicator");
 
 // Available search engines to cycle through
-let search_engines = ["Google", "LibreX", "Github", "StackOverflow", "Reddit"];
+let search_engines = ["Google", "Searx", "Github", "StackOverflow", "Reddit"];
 
 const MIN_SEARCH_ENGINE_INDEX = 0;
 const MAX_SEARCH_ENGINE_INDEX = search_engines.length - 1;
@@ -13,7 +13,7 @@ let search_engine_index = 1;
 // and depending on which search engine is currently selected
 function librex_search(str) {
   if (str !== "") {
-    search_query = "https://search.femboy.hu/search.php?q=" + str;
+    search_query = "https://search.unlocked.link/search?q=" + str;
     window.location.replace(search_query);
   }
 }
