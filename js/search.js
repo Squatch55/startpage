@@ -13,7 +13,7 @@ let search_engine_index = 1;
 // and depending on which search engine is currently selected
 function librex_search(str) {
   if (str !== "") {
-    search_query = "https://search.unlocked.link/search?q=" + str;
+    search_query = "https://searx.be//search?q=" + str;
     window.location.replace(search_query);
   }
 }
